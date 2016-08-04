@@ -8,7 +8,7 @@ var path = require('path')
 var config = require('./config') // holds information about hosting
 var Url = require('./models/Url.model') //this holds our Schema model
 var LookUp = require('./models/Lookup.model.js') //this holds our Schema lookup
-var db = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL ||'mongodb://localhost/HelloMongoose';
+var db ='mongodb://localhost/fcc';
 
 mongoose.connect(db)
 app.use(express.static(path.join(__dirname, 'public')));
