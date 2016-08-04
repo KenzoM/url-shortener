@@ -1,6 +1,8 @@
-body{
-  background: #e2e2e2
+body {
+  margin: 120px auto;
+  background: #e2e2e2;
 }
-.form-control{
-  margin-top: 110px;
+
+#input{
+  display: inline-flex;
 }
