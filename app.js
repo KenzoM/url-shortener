@@ -2,13 +2,14 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
-var port = 3000;
+var port = process.env.PORT ||  3000;
 var crypto = require("crypto");
 var path = require('path')
 var config = require('./config') // holds information about hosting
 var Url = require('./models/Url.model') //this holds our Schema model
 var LookUp = require('./models/Lookup.model.js') //this holds our Schema lookup
-var db = 'mongodb://localhost/fcc'
+var db = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL ||'mongodb://localhost/HelloMongoose';
+
 mongoose.connect(db)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
