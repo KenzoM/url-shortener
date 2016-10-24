@@ -3,6 +3,14 @@ body {
   background: #e2e2e2;
 }
 
-#input{
-  display: inline-flex;
+#shorten-btn{
+  margin-top: 10px;
+}
+
+#shortenURL{
+  margin-top: 15px;
+}
+
+#directions{
+  margin-top: 20px;
 }

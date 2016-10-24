@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var port = process.env.PORT ||  3000;
 var crypto = require("crypto");
 var path = require('path');
-var config = require('./config'); // holds information about hosting
 var Url = require('./models/Url.model'); //this holds our Schema model
 var LookUp = require('./models/Lookup.model.js'); //this holds our Schema lookup
 var db ='mongodb://heroku_0xrn515v:v09cpj5t25qtm73klv2poj5n5h@ds031157.mlab.com:31157/heroku_0xrn515v'
@@ -79,8 +78,9 @@ app.get('/:id', function(req, res){
   })
     .exec(function(err,result){
       if (err) throw err;
+      //if invalid id of shorturl not present, send 404 error.
       if (result === null){
-        res.send({shortUrl: 'nope'})
+        res.status(404).send('Not found')
       } else{
         Url.findOne({
           _id: result.key
