@@ -39,8 +39,8 @@ app.post('/api/shorten',function(req,res){
               key: result._id
             })
               .exec(function(err,result){
-                res.send({shortUrl: config.webhost + result.shortUrl,
-                  shortUrlString: config.webhost + result.shortUrl })
+                res.send({shortUrl: result.shortUrl,
+                  shortUrlString: result.shortUrl })
               })
           }
           //if the long url isn't in the collection, make a new short_url for it
@@ -58,8 +58,8 @@ app.post('/api/shorten',function(req,res){
                 newLookUp.save( function( err, result){
                   if (err) throw err
                   else{
-                    res.send({shortUrl: config.webhost + result.shortUrl,
-                    shortUrlString: config.webhost + result.shortUrl})
+                    res.send({shortUrl: result.shortUrl,
+                    shortUrlString: result.shortUrl})
                   }
                 })
               }
@@ -89,5 +89,5 @@ app.get('/:id', function(req, res){
 });
 
 app.listen(port,function(){
-  console.log('listening in port', port)
+  console.log('listening in port', port);
 })
