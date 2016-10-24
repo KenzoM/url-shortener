@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var port = process.env.PORT ||  3000;
 var crypto = require("crypto");
-var path = require('path')
-var config = require('./config') // holds information about hosting
-var Url = require('./models/Url.model') //this holds our Schema model
-var LookUp = require('./models/Lookup.model.js') //this holds our Schema lookup
+var path = require('path');
+var config = require('./config'); // holds information about hosting
+var Url = require('./models/Url.model'); //this holds our Schema model
+var LookUp = require('./models/Lookup.model.js'); //this holds our Schema lookup
 var db ='mongodb://localhost/fcc';
 
 mongoose.connect(db)
@@ -24,7 +24,6 @@ app.post('/api/shorten',function(req,res){
     //Check if the user input correctly with http or https format
     //if true, proceed. Otherwise, return a string with home direct link
   if(regex.test(req.body.long_url)){
-    // var longUrl = req.body.long_url.replace(/https:\/\/|http:\/\//,"")
     var longUrl = req.body.long_url;
     var shortUrl = ""
     //check if document (url) exist already in collection
@@ -75,7 +74,6 @@ app.post('/api/shorten',function(req,res){
 })
 
 app.get('/:id', function(req, res){
-  var regex = /https:\/\/|http:\/\//
   var shortenURL = req.params.id;
   LookUp.findOne({
     shortUrl: shortenURL

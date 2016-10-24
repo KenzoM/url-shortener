@@ -7,8 +7,7 @@ $("#shorten-btn").click(function(e){
     dataType: 'JSON',
     data: {long_url: urlText}, //data sending out to server is in JSON
     success: function(data){
-      console.log(data)
-      $("#shortenURL a").remove()
+      $("#shortenURL a").remove() //remove any previous a href link
       $('#shortenURL').append('<a href="' + data.shortUrl + '">'+ data.shortUrlString +'</a>')
     }
   });
