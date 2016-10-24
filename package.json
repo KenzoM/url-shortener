@@ -2,17 +2,19 @@
   "name": "shortenerurl",
   "version": "1.0.0",
   "description": "",
-  "main": "baseConverter.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.13.0",
     "crypto": "0.0.3",
     "express": "^4.14.0",
     "mongoose": "^4.6.5"
+  },
+  "engines": {
+    "node": "4.1.1"
   }
 }
