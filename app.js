@@ -8,7 +8,7 @@ var path = require('path');
 var config = require('./config'); // holds information about hosting
 var Url = require('./models/Url.model'); //this holds our Schema model
 var LookUp = require('./models/Lookup.model.js'); //this holds our Schema lookup
-var db ='mongodb://localhost/fcc';
+var db ='mongodb://heroku_0xrn515v:v09cpj5t25qtm73klv2poj5n5h@ds031157.mlab.com:31157/heroku_0xrn515v'
 
 mongoose.connect(db)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -68,7 +68,7 @@ app.post('/api/shorten',function(req,res){
         }
       })
   } else{
-    res.send({shortUrl: config.webhost
+    res.send({shortUrl: "#"
       ,shortUrlString: 'Remember to put in https:// format!'})
   }
 })
