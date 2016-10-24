@@ -58,8 +58,7 @@ app.post('/api/shorten',function(req,res){
                 newLookUp.save( function( err, result){
                   if (err) throw err
                   else{
-                    res.send({shortUrl: result.shortUrl,
-                    shortUrlString: result.shortUrl})
+                    res.send({shortUrl: result.shortUrl})
                   }
                 })
               }
@@ -68,23 +67,29 @@ app.post('/api/shorten',function(req,res){
         }
       })
   } else{
-    res.send({shortUrl: "#"
-      ,shortUrlString: 'Remember to put in https:// format!'})
+    res.send({shortUrl: "#"})
   }
 })
 
+//directs to the long URL that user requested from short-url
 app.get('/:id', function(req, res){
   var shortenURL = req.params.id;
   LookUp.findOne({
     shortUrl: shortenURL
   })
     .exec(function(err,result){
-      Url.findOne({
-        _id: result.key
-      })
-        .exec(function(err,resultLink){
-          res.redirect(resultLink.long_url)
+      if (err) throw err;
+      if (result === null){
+        res.send({shortUrl: 'nope'})
+      } else{
+        Url.findOne({
+          _id: result.key
         })
+          .exec(function(err,resultLink){
+            res.redirect(resultLink.long_url)
+          })
+      }
+
     })
 });
 

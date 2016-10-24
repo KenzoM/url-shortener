@@ -8,10 +8,14 @@ $("#shorten-btn").click(function(e){
     dataType: 'JSON',
     data: {long_url: urlText}, //data sending out to server is in JSON
     success: function(data){
-      console.log(data)
-      console.log(pathname)
       $("#shortenURL a").remove() //remove any previous a href link
-      $('#shortenURL').append('<a href="' + data.shortUrl + '">'+ pathname + data.shortUrl +'</a>')
+      $("#shortenURL p").remove() //remove any previous a href link
+      console.log(data)
+      if (data.shortUrl === "#"){
+        $('#shortenURL').append('<p>Try again buddy</p>')
+      } else{
+        $('#shortenURL').append('<a href="' + data.shortUrl + '">'+ pathname + data.shortUrl +'</a>')
+      }
     }
   });
 })
