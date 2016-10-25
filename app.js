@@ -6,7 +6,7 @@ var port = process.env.PORT ||  3000;
 var crypto = require("crypto");
 var path = require('path');
 var CollectionURL = require('./models/CollectionURL.model');
-var db =  "mongodb://localhost/urlshortner" || process.env.DB;
+var db = process.env.DB;
 
 mongoose.connect(db);
 app.use(express.static(path.join(__dirname, 'public')));
