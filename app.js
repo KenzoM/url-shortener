@@ -7,7 +7,7 @@ var crypto = require("crypto");
 var path = require('path');
 var Url = require('./models/Url.model'); //this holds our Schema model
 var LookUp = require('./models/Lookup.model.js'); //this holds our Schema lookup
-var db ='mongodb://heroku_0xrn515v:v09cpj5t25qtm73klv2poj5n5h@ds031157.mlab.com:31157/heroku_0xrn515v'
+var db = process.env.DB;
 
 mongoose.connect(db)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,38 +31,31 @@ app.post('/api/shorten',function(req,res){
     })
       .exec(function(err,result){
         if (err) throw err
+        //if the long url is in the collection, simply return the short_url
+        if(result){
+          LookUp.findOne({
+            key: result._id
+          })
+            .exec(function(err,result){
+              res.send({shortUrl: result.shortUrl,
+                shortUrlString: result.shortUrl })
+            })
+        }
+        //if the long url isn't in the collection, make a new short_url for it
         else{
-          //if the long url is in the collection, simply return the short_url
-          if(result){
-            LookUp.findOne({
-              key: result._id
+          var newUrl = new Url();
+          newUrl.long_url = longUrl
+          newUrl.save( function(err,result){
+            if(err){console.log('error!')};
+            var newLookUp = new LookUp();
+            newLookUp.key = result._id;
+            var id = crypto.randomBytes(2).toString('hex');
+            newLookUp.shortUrl = id
+            newLookUp.save( function( err, result){
+              if (err) throw err
+              res.send({shortUrl: result.shortUrl})
             })
-              .exec(function(err,result){
-                res.send({shortUrl: result.shortUrl,
-                  shortUrlString: result.shortUrl })
-              })
-          }
-          //if the long url isn't in the collection, make a new short_url for it
-          else{
-            var newUrl = new Url();
-            newUrl.long_url = longUrl
-            newUrl.save( function(err,result){
-              if(err){
-                console.log('error!')
-              } else{
-                var newLookUp = new LookUp();
-                newLookUp.key = result._id;
-                var id = crypto.randomBytes(2).toString('hex');
-                newLookUp.shortUrl = id
-                newLookUp.save( function( err, result){
-                  if (err) throw err
-                  else{
-                    res.send({shortUrl: result.shortUrl})
-                  }
-                })
-              }
-            })
-          }
+          })
         }
       })
   } else{
@@ -89,7 +82,6 @@ app.get('/:id', function(req, res){
             res.redirect(resultLink.long_url)
           })
       }
-
     })
 });
 
