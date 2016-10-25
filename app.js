@@ -6,8 +6,9 @@ var port = process.env.PORT ||  3000;
 var crypto = require("crypto");
 var path = require('path');
 var Url = require('./models/Url.model'); //this holds our Schema model
-var LookUp = require('./models/Lookup.model.js'); //this holds our Schema lookup
-var db = process.env.DB;
+var LookUp = require('./models/Lookup.model'); //this holds our Schema lookup
+var Collection = require('./models/Collection.model');
+var db =  "mongodb://localhost/urlshortner" || process.env.DB;
 
 mongoose.connect(db)
 app.use(express.static(path.join(__dirname, 'public')));
