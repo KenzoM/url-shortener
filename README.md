@@ -1,5 +1,5 @@
 # URL-Shortener
-A an app that utilizes and `Node.js` and `MongoDB` to allow users search local bars near their desired area.
+A an app that utilizes and `Node.js` and `MongoDB` to allow users to shorten url's.
 
 ## Getting Started
 
